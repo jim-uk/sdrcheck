@@ -1,24 +1,3 @@
-/*
- * Copyright (C) 2012 by Kyle Keen <keenerd@gmail.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/* a collection of user friendly tools
- * todo: use strtol for more flexible int parsing
- * */
-
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -53,6 +32,11 @@ void verbose_device_search(char *s)
 			product[0]="\0";
 			serial[0]='\0';
 			rtlsdr_get_device_usb_strings(i, vendor, product, serial);
+			//check to make sure no illegal characters
+			checkChars(vendor);
+			checkChars(product);
+			checkChars(serial);
+
 			//fprintf(stdout, "  %d:  %s, %s, SN: %s\n", i, vendor, product, serial);
 			if (i>0)
 				fprintf(stdout,",");
@@ -62,4 +46,14 @@ void verbose_device_search(char *s)
 	}
 }
 
-// vim: tabstop=8:softtabstop=8:shiftwidth=8:noexpandtab
+void checkChars(char *in){
+	size_t length = strlen(in); 
+
+	for (size_t i = 0; i < length; i++)
+	{
+		if (in[i]<32 || in[i]>127){
+			in[i]=34;
+		}
+	}
+}
+
