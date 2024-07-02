@@ -51,9 +51,13 @@ void checkChars(char *in){
 
 	for (size_t i = 0; i < length; i++)
 	{
-		if (in[i]<32 || in[i]>126){
-			in[i]=42;
+		if (in[i]==0){
+			break;
 		}
+		if (in[i]<32 || in[i]>127){
+			in[i]=34;
+		}
+	}
 	}
 }
 
