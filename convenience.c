@@ -58,6 +58,5 @@ void checkChars(char *in){
 			in[i]=42;
 		}
 	}
-	}
 }
 
