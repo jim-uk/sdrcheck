@@ -55,7 +55,7 @@ void checkChars(char *in){
 			break;
 		}
 		if (in[i]<32 || in[i]>127){
-			in[i]=34;
+			in[i]=42;
 		}
 	}
 	}
